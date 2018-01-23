@@ -25,7 +25,8 @@
     "build": "node-gyp configure && node-gyp build",
     "build:debug": "node-gyp configure --debug && node-gyp build --debug",
     "clean": "rm -rf ./build || true",
-    "test": "jest",
+    "test": "jest '__tests__/(?!integration).*'",
+    "test:integration": "jest '__tests__/integration/.*'",
     "lint": "clang-format -i -style=file ./src/*.{h,cpp} ./src/**/*.{h,cpp}"
   },
   "directories": {

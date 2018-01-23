@@ -38,6 +38,10 @@ You can then run the tests with the following:
 
     $ npm test
 
+And the integration tests:
+
+    $ npm run test:integration
+
 ## Things which work
 
 - Bindings for classes are generated

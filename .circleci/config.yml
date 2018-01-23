@@ -34,6 +34,19 @@ jobs:
       - run: apt-get install -y clang-format
       - run: npm run lint -- -output-replacements-xml | grep -c "<replacement "; [ $? -ne 1 ] && exit 1 || exit 0
 
+  node-8-integration:
+    docker:
+      - image: node:8-stretch
+    steps:
+      - checkout
+      - run: echo "deb http://deb.debian.org/debian testing main" >> /etc/apt/sources.list
+      - run: apt-get update
+      - run: apt-get install -y xvfb libgirepository1.0-dev libgtk-3-dev libkeybinder-3.0-0 gir1.2-keybinder xdotool
+      - run: npm install
+      - run: npm run build
+      - run: xvfb-run -a npm test
+      - run: xvfb-run -a npm run test:integration
+
 workflows:
   version: 2
   build_and_test:
@@ -41,3 +54,4 @@ workflows:
       - build
       - node-8
       - node-6
+      - node-8-integration
